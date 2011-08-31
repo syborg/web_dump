@@ -3,14 +3,19 @@ require 'rake'
 
 begin
   require 'jeweler'
+  require './lib/web_dump/version'
   Jeweler::Tasks.new do |gem|
     gem.name = "web_dump"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Saves and Retrieves data in files given an URI}
+    gem.description = %Q{Saves and Retrieves data given an URI. The filename
+      will be automatically choosed using that URI freeing the user to think
+      about that}.gsub(/\s+/,' ')
     gem.email = "xaxaupua@gmail.com"
     gem.homepage = "http://github.com/syborg/web_dump"
     gem.authors = ["Marcel Massana"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_dependency "uri_pathname", ">= 0"
+    # gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.version = WebDump::Version::STRING
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

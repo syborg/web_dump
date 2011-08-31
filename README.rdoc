@@ -1,6 +1,48 @@
 = web_dump
 
-Description goes here.
+Little tiny class to easily save and retrieve web pages
+
+In web related client applications, such as spiders, it is frequently necessary 
+to save pages into files with adecuate naming convention. WebDump comes to the
+rescue. It manages the details of assigning unique readable names and save files
+after URIs that have been visited. Additionally, saving data could also be
+conveniently compressed with gzip for deep web spidering. It only depends on
+telling the correct file extension when saving.
+
+Conversely, file read operation is available through convenient methods
+indicating either a pathname or a URI.
+
+== Installation
+
+  $ sudo gem install web_dump
+
+The main source repository is http://github.com/syborg/web_dump.
+
+== Usage
+
+First of all ...
+
+  require 'rubygems'
+  require 'web_dump'
+
+Instantiate an object. You may add some options that can be passed through an
+array
+
+  wd = WebDump,new :base_dir => '~/mydir', :file_ext => '.gz'
+
+`wd`, when asked to, will save all files inside expanded directory '~/mydir'
+with an appended file extension at the end '.gz' (if not overwriten later)
+
+Other options could be passed when instantiating an object.
+
+* `:file_ext => extension` (String that will be appended at the end to every filename if not changed from _save_ method)
+
+Most of them are also passed along to an UriPathname object that is created.
+
+* `:base_dir => dir_name` (directory where everything will be stored. Defaults to '~/web_dumps')
+* `:pth_sep => psep` (String that will be used to substitute '/' inside URI's path and queries (defaults to UriPathname::PTH_SEP='_|_'))
+* `:host_sep => hsep` (String that will be used separate the URI¡s hostname and path when constructing the pathname. if '/' is used, hostname will actually become a subdirectory -defaults to UriPathname::HOST_SEP='__|'-)
+* `:no_path => nopath` (String that will be used as a path placeholder when no URI's path exists, -default UriPathname::NO_PTH = '_NOPATH_'-)
 
 == Note on Patches/Pull Requests
  
