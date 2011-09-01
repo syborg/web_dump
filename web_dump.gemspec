@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.rdoc",
     "Rakefile",
+    "examples/simple_examples.rb",
     "lib/web_dump.rb",
     "lib/web_dump/version.rb",
     "test/test_web_dump.rb",
