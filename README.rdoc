@@ -20,29 +20,88 @@ The main source repository is http://github.com/syborg/web_dump.
 
 == Usage
 
+=== Intantiating
+
 First of all ...
 
   require 'rubygems'
   require 'web_dump'
 
-Instantiate an object. You may add some options that can be passed through an
-array
+Instantiating an object, you may add some options that can be passed through a Hash
 
-  wd = WebDump,new :base_dir => '~/mydir', :file_ext => '.gz'
+  wd = WebDump.new :base_dir => '~/mydir', :file_ext => '.gz'
 
 `wd`, when asked to, will save all files inside expanded directory '~/mydir'
-with an appended file extension at the end '.gz' (if not overwriten later)
+with an appended file extension '.gz' at the end (if not overwritten later)
 
-Other options could be passed when instantiating an object.
+Some options that could be passed when instantiating an object. Most of them are directly passed along to an UriPathname object that is created.
 
 * `:file_ext => extension` (String that will be appended at the end to every filename if not changed from _save_ method)
-
-Most of them are also passed along to an UriPathname object that is created.
-
 * `:base_dir => dir_name` (directory where everything will be stored. Defaults to '~/web_dumps')
 * `:pth_sep => psep` (String that will be used to substitute '/' inside URI's path and queries (defaults to UriPathname::PTH_SEP='_|_'))
 * `:host_sep => hsep` (String that will be used separate the URI¡s hostname and path when constructing the pathname. if '/' is used, hostname will actually become a subdirectory -defaults to UriPathname::HOST_SEP='__|'-)
 * `:no_path => nopath` (String that will be used as a path placeholder when no URI's path exists, -default UriPathname::NO_PTH = '_NOPATH_'-)
+
+=== Saving Web Contents
+
+You should use WebDump#save, for example:
+
+  wd.save "http://hello.world.com/hithere", data
+
+=== Retrieving Web Contents
+
+You can retrieve data using two flavoured read methods, using URIs or using
+pathnames as main argument
+
+  data = wd.read_uri(uri)
+
+or
+
+  data = wd.read_pathname(f)
+
+== Example
+
+Here is a complete example
+
+```ruby
+require 'rubygems'
+require 'open-uri'
+require 'web_dump'
+
+MY_URIS = [
+  'http://en.wikipedia.org/wiki/Ruby_Bridges',
+  'http://donaldfagen.com/disc_nightfly.php',
+  'http://www.rubi.cat/ajrubi/portada/index.php',
+  'http://www.google.com/cse?q=array&cx=013598269713424429640%3Ag5orptiw95w&ie=UTF-8&sa=Search'
+]
+
+# all files will be saved in expanded '~/mydir' with file extension '.gz'
+wd = WebDump.new :base_dir => '~/mydir', :file_ext => '.gz'
+
+# Don't care about filenames while saving pages into files
+puts "Saving data using URIs"
+MY_URIS.each do |uri|
+  open uri do |u|
+    data = u.read
+    puts wd.save uri, data
+  end
+end
+
+# Possibly mocking?. Don't care about filenames while retrieving pages from files.
+puts "\nRetrieving data using URIs"
+MY_URIS.each do |uri|
+  data = wd.read_uri(uri)
+  puts data[0...100].gsub(/\s+/, ' ').strip
+end
+
+# ... or, conversely, use filenames if you need so
+puts "\nRetrieving data using pathnames"
+files = Dir[File.expand_path('*.gz', '~/mydir')]
+files.each do |f|
+  data = wd.read_pathname(f)
+  puts data[0...100].gsub(/\s+/, ' ').strip
+end
+```
 
 == Note on Patches/Pull Requests
  

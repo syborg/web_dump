@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "web_dump"
-  s.version = "0.0.1.0"
+  s.version = "0.0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marcel Massana"]
-  s.date = "2011-08-31"
+  s.date = "2011-09-01"
   s.description = "Saves and Retrieves data given an URI. The filename will be automatically choosed using that URI freeing the user to think about that"
   s.email = "xaxaupua@gmail.com"
   s.extra_rdoc_files = [
@@ -18,10 +18,6 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
-    ".goutputstream-6QBL0V",
-    ".goutputstream-6X1P0V",
-    ".goutputstream-IR2O0V",
-    ".goutputstream-TK420V",
     "LICENSE",
     "README.rdoc",
     "Rakefile",
