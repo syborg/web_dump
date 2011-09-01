@@ -87,7 +87,7 @@ MY_URIS.each do |uri|
   end
 end
 
-# Possibly mocking?. Don't care about filenames while retrieving pages from files.
+# Possibly mocking? ... don't care about filenames while retrieving pages from files.
 puts "\nRetrieving data using URIs"
 MY_URIS.each do |uri|
   data = wd.read_uri(uri)
